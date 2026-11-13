@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aryan — Physics & Astrophysics Portfolio | IISER Pune</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --border: #273549;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --ongoing: #f59e0b;
+      --ongoing-soft: rgba(245, 158, 11, 0.14);
+      --completed: #10b981;
+      --completed-soft: rgba(16, 185, 129, 0.14);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    /* Header / Hero */
+    header {
+      background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .top-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-inst {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .badge-asi {
+      background: rgba(168, 85, 247, 0.14);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .bio {
+      color: #cbd5e1;
+      font-size: 0.97rem;
+      margin-bottom: 1.5rem;
+      max-width: 78ch;
+    }
+
+    .links-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      transition: all 0.18s ease;
+    }
+
+    .btn-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Section Headings */
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    /* Filter & Action Controls */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .filter-btn, .action-btn {
+      padding: 0.48rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .action-btn-primary {
+      background: var(--accent);
+      color: #0b1120;
+      border-color: var(--accent);
+    }
+
+    .action-btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .action-btn-export {
+      background: var(--surface-2);
+      color: #e2e8f0;
+    }
+
+    .action-btn-export:hover {
+      border-color: var(--completed);
+      color: var(--completed);
+    }
+
+    /* Add Project Form */
+    .add-panel {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .add-panel.open { display: block; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea { resize: vertical; min-height: 82px; }
+
+    /* Project Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.45rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .card:hover { border-color: #3b4f6b; }
+
+    .card-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .status-ongoing {
+      background: var(--ongoing-soft);
+      color: var(--ongoing);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .status-completed {
+      background: var(--completed-soft);
+      color: var(--completed);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .card-date {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      color: #f8fafc;
+    }
+
+    .card p {
+      color: #cbd5e1;
+      font-size: 0.93rem;
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.76rem;
+      background: var(--surface-2);
+      color: #93c5fd;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .repo-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .repo-link:hover { text-decoration: underline; }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .mini-btn {
+      font-size: 0.76rem;
+      padding: 0.28rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .mini-btn:hover { color: var(--text); border-color: var(--muted); }
+    .mini-btn.del:hover { color: #f87171; border-color: #f87171; }
+
+    /* Coursework & Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.15rem;
+    }
+
+    @media (max-width: 680px) {
+      .info-grid { grid-template-columns: 1fr; }
+    }
+
+    .info-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+    }
+
+    .info-box h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .info-box ul {
+      list-style: none;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    .info-box li {
+      padding: 0.28rem 0;
+      border-bottom: 1px solid rgba(39, 53, 73, 0.5);
+    }
+
+    .info-box li:last-child { border-bottom: none; }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="top-badges">
+        <span class="badge badge-inst">IISER Pune · BS–MS (2023–2028)</span>
+        <span class="badge badge-asi">Attending ASI Meet 2027 · Varanasi (Feb 12–16)</span>
+      </div>
+      <h1>Aryan</h1>
+      <p class="subtitle">3rd-Year BS–MS Student · Physics Major &amp; Chemistry Minor</p>
+      <p class="bio">
+        Undergraduate researcher at the Indian Institute of Science Education and Research (IISER), Pune,
+        interested in observational &amp; theoretical astrophysics, interstellar molecular spectroscopy,
+        plasma physics, and scientific instrumentation. Focused on connecting physical theory with
+        computational modeling and experimental setups.
+      </p>
+      <div class="links-bar">
+        <a class="btn-link" href="mailto:aryan.20231053@students.iiserpune.ac.in">✉ Email</a>
+        <a class="btn-link" href="https://github.com/arc-aryan" target="_blank" rel="noopener">⌘ GitHub</a>
+        <a class="btn-link" href="https://orcid.org/0009-0000-2670-1698" target="_blank" rel="noopener">iD ORCID</a>
+        <a class="btn-link" href="Academic_CV.pdf" target="_blank" rel="noopener">📄 Curriculum Vitae</a>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-header">
+        <h2>Research &amp; Technical Projects</h2>
+        <div class="controls">
+          <button class="filter-btn active" data-filter="all">All (<span id="count-all">0</span>)</button>
+          <button class="filter-btn" data-filter="ongoing">Working On (<span id="count-ongoing">0</span>)</button>
+          <button class="filter-btn" data-filter="completed">Completed (<span id="count-completed">0</span>)</button>
+          <button class="action-btn action-btn-primary" id="toggle-add-btn">+ Add Project</button>
+          <button class="action-btn action-btn-export" id="export-html-btn" title="Download index.html with your saved projects so you can push updates to GitHub Pages">⬇ Export Site</button>
+        </div>
+      </div>
+
+      <!-- Interactive Add Project Form -->
+      <div class="add-panel" id="add-panel">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Add Ongoing or Completed Project</h3>
+        <form id="project-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="p-title">Project Title *</label>
+              <input type="text" id="p-title" required placeholder="e.g., Non-LTE RADEX Grid for CH3OH Lines" />
+            </div>
+            <div class="form-group">
+              <label for="p-status">Status *</label>
+              <select id="p-status">
+                <option value="ongoing">Working On (In Progress)</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="p-date">Timeline / Date</label>
+              <input type="text" id="p-date" placeholder="e.g., Nov 2026 – Present" />
+            </div>
+            <div class="form-group">
+              <label for="p-repo">GitHub / Link URL (Optional)</label>
+              <input type="url" id="p-repo" placeholder="https://github.com/username/repo" />
+            </div>
+            <div class="form-group full">
+              <label for="p-desc">Research Question / Summary *</label>
+              <textarea id="p-desc" required placeholder="State the core question, methodology, and key findings or goals..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label for="p-tags">Tags (comma-separated)</label>
+              <input type="text" id="p-tags" placeholder="e.g., Python, Radiative Transfer, CDMS/JPL, Spectroscopy" />
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.65rem;">
+            <button type="submit" class="action-btn action-btn-primary">Save Project</button>
+            <button type="button" class="filter-btn" id="cancel-add-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="projects-grid" id="projects-grid"></div>
+    </section>
+
+    <section class="info-grid">
+      <div class="info-box">
+        <h3>Core Coursework</h3>
+        <ul>
+          <li><strong>Physics Major:</strong> Quantum Mechanics, Electrodynamics, Optics &amp; Lasers, Classical Mechanics, Gravitation, Plasma Physics, Condensed Matter Basics</li>
+          <li><strong>Chemistry Minor:</strong> Advanced Molecular Spectroscopy, Quantum Chemistry</li>
+          <li><strong>Laboratory:</strong> Experimental Physics &amp; Chemistry Labs, Data Analysis &amp; Scientific Programming</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <h3>Academic &amp; Outreach Highlights</h3>
+        <ul>
+          <li><strong>ASI Meet 2027:</strong> Attending the 45th Annual Meeting of the Astronomical Society of India (IIT BHU &amp; BHU, Varanasi)</li>
+          <li><strong>Observational Astronomy:</strong> Pune Astronomy Camp &amp; Refractive Telescope Observation Nights</li>
+          <li><strong>Leadership:</strong> Organiser, Bookworm Reading Workshop (2023) &amp; Cricket Coordinator, IISER Pune (2024–2025)</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      Aryan · IISER Pune · Last updated <span id="year"></span>
+    </footer>
+  </div>
+
+  <!-- INITIAL_PROJECTS_DATA_START -->
+  <script id="initial-projects-data" type="application/json">
+  [
+    {
+      "id": "proj-1",
+      "title": "ISM Molecular Line Excitation & Rotational Diagram Toolkit",
+      "status": "ongoing",
+      "date": "Nov 2026 – Present",
+      "desc": "Research Question: Under what regimes of H2 density and kinetic temperature do LTE rotational population diagrams systematically underestimate column densities in dense star-forming cores? Implementing Boltzmann plot fitting with optical depth corrections alongside CDMS/JPL spectroscopic constants.",
+      "tags": ["Astrophysics", "Molecular Spectroscopy", "Python", "CDMS / JPL"],
+      "repo": "https://github.com/YOUR-USERNAME/ism-rotational-excitation"
+    },
+    {
+      "id": "proj-2",
+      "title": "Non-LTE RADEX Parameter Grid & Critical Density Explorer",
+      "status": "ongoing",
+      "date": "Nov 2026 – Present",
+      "desc": "Computing 2D escape-probability radiative transfer grids across molecular hydrogen density and gas kinetic temperature to map sub-thermal excitation deviations for common interstellar tracers.",
+      "tags": ["RADEX", "Radiative Transfer", "LAMDA", "Python"],
+      "repo": "https://github.com/YOUR-USERNAME/ism-rotational-excitation"
+    },
+    {
+      "id": "proj-3",
+      "title": "Arduino-Controlled Multi-Payload RC Platform (Laser & Coil-Gun System)",
+      "status": "completed",
+      "date": "2024",
+      "desc": "Designed and built an Arduino-interfaced remote-controlled mobile platform with dedicated mounts and wireless command control for an optical laser module and electromagnetic coil-gun assembly.",
+      "tags": ["Arduino", "Electromagnetism", "Instrumentation", "Hardware"],
+      "repo": ""
+    },
+    {
+      "id": "proj-4",
+      "title": "Observational Astronomy & Telescope Instrumentation Sessions",
+      "status": "completed",
+      "date": "2023 – 2024",
+      "desc": "Participated in the Pune Astronomy Camp (laboratory and optical instrumentation exposure) and conducted multi-night planetary, stellar, and constellation observations using refractive telescopes.",
+      "tags": ["Observational Astronomy", "Optics", "Refractive Telescope"],
+      "repo": ""
+    }
+  ]
+  </script>
+  <!-- INITIAL_PROJECTS_DATA_END -->
+
+  <script>
+    const STORAGE_KEY = "aryan_portfolio_projects_v1";
+    let currentFilter = "all";
+
+    function loadProjects() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      const raw = document.getElementById("initial-projects-data").textContent;
+      return JSON.parse(raw);
+    }
+
+    let projects = loadProjects();
+
+    function saveProjects() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+      renderProjects();
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function renderProjects() {
+      const grid = document.getElementById("projects-grid");
+      const ongoingCount = projects.filter(p => p.status === "ongoing").length;
+      const completedCount = projects.filter(p => p.status === "completed").length;
+
+      document.getElementById("count-all").textContent = projects.length;
+      document.getElementById("count-ongoing").textContent = ongoingCount;
+      document.getElementById("count-completed").textContent = completedCount;
+
+      const filtered = projects.filter(p => currentFilter === "all" || p.status === currentFilter);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="card"><p style="margin:0;color:var(--muted);">No projects in this category yet. Click <strong>+ Add Project</strong> above to add one.</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => `
+        <article class="card">
+          <div class="card-top">
+            <span class="status-pill ${p.status === "ongoing" ? "status-ongoing" : "status-completed"}">
+              ${p.status === "ongoing" ? "● Working On" : "✓ Completed"}
+            </span>
+            <span class="card-date">${escapeHtml(p.date || "")}</span>
+          </div>
+          <h3>${escapeHtml(p.title)}</h3>
+          <p>${escapeHtml(p.desc)}</p>
+          <div class="tags">
+            ${(p.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+          </div>
+          <div class="card-footer">
+            <div>
+              ${p.repo ? `<a class="repo-link" href="${escapeHtml(p.repo)}" target="_blank" rel="noopener">View Repository / Link →</a>` : `<span style="font-size:0.8rem;color:var(--muted);">Lab / Hardware Documentation</span>`}
+            </div>
+            <div class="card-actions">
+              <button class="mini-btn" onclick="toggleStatus('${p.id}')">
+                Mark as ${p.status === "ongoing" ? "Completed" : "Working On"}
+              </button>
+              <button class="mini-btn del" onclick="deleteProject('${p.id}')">Delete</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    window.toggleStatus = function(id) {
+      projects = projects.map(p => p.id === id ? { ...p, status: p.status === "ongoing" ? "completed" : "ongoing" } : p);
+      saveProjects();
+    };
+
+    window.deleteProject = function(id) {
+      if (!confirm("Remove this project from your portfolio?")) return;
+      projects = projects.filter(p => p.id !== id);
+      saveProjects();
+    };
+
+    // Filter tabs
+    document.querySelectorAll(".filter-btn[data-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn[data-filter]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.dataset.filter;
+        renderProjects();
+      });
+    });
+
+    // Toggle Add Panel
+    const addPanel = document.getElementById("add-panel");
+    document.getElementById("toggle-add-btn").addEventListener("click", () => {
+      addPanel.classList.toggle("open");
+    });
+    document.getElementById("cancel-add-btn").addEventListener("click", () => {
+      addPanel.classList.remove("open");
+    });
+
+    // Form Submit
+    document.getElementById("project-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const title = document.getElementById("p-title").value.trim();
+      const status = document.getElementById("p-status").value;
+      const date = document.getElementById("p-date").value.trim();
+      const repo = document.getElementById("p-repo").value.trim();
+      const desc = document.getElementById("p-desc").value.trim();
+      const tags = document.getElementById("p-tags").value
+        .split(",")
+        .map(t => t.trim())
+        .filter(Boolean);
+
+      projects.unshift({
+        id: "proj-" + Date.now(),
+        title,
+        status,
+        date: date || (status === "ongoing" ? "In Progress" : "Completed"),
+        desc,
+        tags,
+        repo
+      });
+
+      saveProjects();
+      e.target.reset();
+      addPanel.classList.remove("open");
+    });
+
+    // Export standalone HTML with updated projects baked in
+    document.getElementById("export-html-btn").addEventListener("click", () => {
+      const currentDoc = document.documentElement.outerHTML;
+      const updatedJson = JSON.stringify(projects, null, 2);
+      const replaced = currentDoc.replace(
+        /<script id="initial-projects-data" type="application\/json">[\s\S]*?<\/script>/,
+        `<script id="initial-projects-data" type="application/json">\n${updatedJson}\n  <\/script>`
+      );
+      const blob = new Blob(["<!DOCTYPE html>\n" + replaced], { type: "text/html" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "index.html";
+      a.click();
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderProjects();
+  </script>
+</body>
+</html>
