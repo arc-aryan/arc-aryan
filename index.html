@@ -3,193 +3,645 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aryan — Physics & Astrophysics Portfolio | IISER Pune</title>
+  <title>Aryan — Physics & Astrophysics | IISER Pune</title>
+  <!-- Editorial Typography: Plus Jakarta Sans + Newsreader Serif + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0b1120;
-      --surface: #111827;
-      --surface-2: #1e293b;
-      --border: #273549;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --ongoing: #f59e0b;
-      --ongoing-soft: rgba(245, 158, 11, 0.14);
-      --completed: #10b981;
-      --completed-soft: rgba(16, 185, 129, 0.14);
+      --bg: #FAF6F0;          /* Warm editorial cream */
+      --bg-card: #F3EDE2;     /* Subtle warm stone for cards */
+      --ink: #1C1B19;         /* Deep charcoal ink */
+      --ink-muted: #57534E;   /* Warm slate gray */
+      --ink-subtle: #8C857B;  /* Muted stone */
+      --sage: #D9F0C7;        /* Soft botanical lime/sage from reference */
+      --sage-dark: #3B5228;
+      --amber-soft: #FDE68A;
+      --border: #DED6C8;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--ink);
       line-height: 1.65;
-      padding: 2rem 1.25rem 4rem;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 920px;
+      max-width: 1140px;
       margin: 0 auto;
+      padding: 0 2rem;
     }
 
-    /* Header / Hero */
-    header {
-      background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.25rem;
-      margin-bottom: 2rem;
-    }
-
-    .top-badges {
+    /* ---------------- TOP NAVIGATION ---------------- */
+    nav {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
+      animation: fadeDown 0.8s var(--ease-out) both;
     }
 
-    .badge {
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 34px;
+      height: 30px;
+    }
+
+    .brand-mark::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 24px;
+      height: 24px;
+      background: var(--ink);
+      border-radius: 50%;
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      right: 1px;
+      top: 0;
+      width: 22px;
+      height: 26px;
+      background: var(--sage);
+      border: 1.5px solid var(--ink);
+      border-radius: 52% 48% 48% 52% / 55% 45% 55% 45%;
+      transform: rotate(12deg);
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    .brand:hover .brand-mark::after {
+      transform: rotate(24deg) translate(2px, -1px);
+    }
+
+    .brand-text {
       font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.25s ease;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--ink);
       font-weight: 600;
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s var(--ease-out);
+    }
+
+    .nav-link.active::after,
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* ---------------- EDITORIAL HERO SECTION ---------------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr 1fr;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 3.5rem 0 5rem;
+      position: relative;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: left;
+        gap: 2.75rem;
+        padding: 2rem 0 3.5rem;
+      }
+    }
+
+    .hero-left {
+      animation: fadeUp 0.85s 0.1s var(--ease-out) both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+      margin-bottom: 1rem;
       letter-spacing: 0.02em;
     }
 
-    .badge-inst {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
+      animation: pulseDot 2.4s infinite ease-in-out;
     }
 
-    .badge-asi {
-      background: rgba(168, 85, 247, 0.14);
-      color: #d8b4fe;
-      border: 1px solid rgba(168, 85, 247, 0.35);
+    .hero-title {
+      font-size: clamp(2.6rem, 4.7vw, 4.1rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
     }
 
-    h1 {
-      font-size: 2.2rem;
+    .dotted-divider {
+      border: none;
+      border-top: 2px dotted var(--ink);
+      width: 100%;
+      margin: 1.35rem 0;
+      opacity: 0.7;
+    }
+
+    .hero-subtitle {
+      font-size: 1.08rem;
+      color: var(--ink-muted);
+      font-weight: 400;
+      max-width: 38ch;
+      margin-bottom: 1.65rem;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .editorial-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid var(--ink);
+      transition: gap 0.25s var(--ease-out), opacity 0.2s ease;
     }
 
-    .subtitle {
-      color: var(--muted);
-      font-size: 1.05rem;
+    .editorial-link:hover {
+      gap: 0.6rem;
+      opacity: 0.75;
+    }
+
+    /* ---------------- CENTER PORTRAIT WITH OFFSET CRESCENT ---------------- */
+    .hero-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeUp 0.9s 0.22s var(--ease-out) both;
+    }
+
+    .portrait-stage {
+      position: relative;
+      width: 320px;
+      height: 360px;
+      cursor: pointer;
+    }
+
+    /* Offset dark organic shape (like Tamara reference) */
+    .portrait-Crescent {
+      position: absolute;
+      top: 24px;
+      left: -28px;
+      width: 295px;
+      height: 325px;
+      background: var(--ink);
+      border-radius: 54% 46% 48% 52% / 52% 48% 52% 48%;
+      transform: rotate(-10deg);
+      transition: transform 0.6s var(--ease-out), border-radius 0.6s var(--ease-out);
+      animation: floatShape 7s ease-in-out infinite alternate;
+    }
+
+    /* Subtle secondary sage accent */
+    .portrait-sage-accent {
+      position: absolute;
+      bottom: 8px;
+      right: -12px;
+      width: 110px;
+      height: 110px;
+      background: var(--sage);
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      z-index: 0;
+      transition: transform 0.5s var(--ease-out);
+    }
+
+    .portrait-frame {
+      position: relative;
+      width: 300px;
+      height: 340px;
+      border-radius: 50% 50% 48% 52% / 54% 52% 48% 46%;
+      overflow: hidden;
+      border: 1.5px solid var(--ink);
+      background: #E5DEC9;
+      z-index: 2;
+      transition: transform 0.5s var(--ease-out);
+    }
+
+    .portrait-stage:hover .portrait-frame {
+      transform: translate(4px, -4px);
+    }
+
+    .portrait-stage:hover .portrait-Crescent {
+      transform: rotate(-15deg) translate(-6px, 4px);
+    }
+
+    .portrait-stage:hover .portrait-sage-accent {
+      transform: translate(6px, 6px) scale(1.05);
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Centers squarely on your face & white collared shirt from Photo 1 */
+      object-position: center 22%;
+      transform: scale(1.22);
+      transition: transform 0.65s var(--ease-out);
+    }
+
+    .portrait-stage:hover .portrait-frame img {
+      transform: scale(1.27);
+    }
+
+    .photo-hint {
+      position: absolute;
+      bottom: -26px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ink-subtle);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .portrait-stage:hover .photo-hint {
+      opacity: 1;
+    }
+
+    /* ---------------- RIGHT QUOTE COLUMN ---------------- */
+    .hero-right {
+      position: relative;
+      padding: 1rem 0.5rem;
+      animation: fadeUp 0.95s 0.34s var(--ease-out) both;
+    }
+
+    .quote-mark {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 0.6;
+      color: var(--ink);
+      user-select: none;
+    }
+
+    .quote-mark.open {
+      margin-bottom: 0.75rem;
+    }
+
+    .quote-mark.close {
+      text-align: right;
+      margin-top: 0.5rem;
+    }
+
+    .quote-body {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.24rem;
+      line-height: 1.55;
+      color: var(--ink);
       margin-bottom: 1.2rem;
     }
 
-    .bio {
-      color: #cbd5e1;
-      font-size: 0.97rem;
-      margin-bottom: 1.5rem;
-      max-width: 78ch;
+    .asi-callout {
+      display: inline-block;
+      background: var(--sage);
+      border: 1px solid var(--ink);
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 1.1rem;
     }
 
-    .links-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .btn-link {
+    .cta-arrow {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.55rem 1rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
       text-decoration: none;
-      color: var(--text);
-      background: var(--surface-2);
+      transition: gap 0.25s var(--ease-out);
+    }
+
+    .cta-arrow:hover {
+      gap: 0.8rem;
+    }
+
+    /* ---------------- SECTIONS & PROJECTS ---------------- */
+    section {
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Minimal Editorial Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      align-items: center;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      cursor: pointer;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--ink);
+    }
+
+    .tab-btn.active {
+      color: var(--ink);
+      font-weight: 700;
+      border-bottom-color: var(--ink);
+    }
+
+    .admin-only {
+      display: none !important;
+    }
+
+    body.admin-mode .admin-only {
+      display: inline-flex !important;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--ink);
+      background: var(--sage);
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 0.2s var(--ease-out), background 0.2s ease;
+    }
+
+    .pill-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .pill-btn.secondary {
+      background: var(--bg-card);
+    }
+
+    /* ---------------- PROJECT ROWS (HUMAN EDITORIAL LAYOUT) ---------------- */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 2rem;
+      padding: 2.1rem 0;
+      border-top: 1px solid var(--border);
+      transition: transform 0.35s var(--ease-out), background-color 0.3s ease;
+    }
+
+    .project-item:first-child {
+      border-top: 1.5px solid var(--ink);
+    }
+
+    .project-item:hover {
+      transform: translateX(6px);
+    }
+
+    @media (max-width: 720px) {
+      .project-item {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+    }
+
+    .project-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .project-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+    }
+
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--ink);
+    }
+
+    .status-ongoing {
+      background: var(--amber-soft);
+      color: var(--ink);
+    }
+
+    .status-completed {
+      background: var(--sage);
+      color: var(--ink);
+    }
+
+    .project-content h3 {
+      font-size: 1.32rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.55rem;
+      color: var(--ink);
+    }
+
+    .project-content p {
+      color: var(--ink-muted);
+      font-size: 0.98rem;
+      max-width: 72ch;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .project-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem;
+      color: var(--ink-muted);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      transition: all 0.18s ease;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
     }
 
-    .btn-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    /* Section Headings */
-    .section-header {
+    .project-footer {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 1.25rem;
     }
 
-    h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-    }
-
-    /* Filter & Action Controls */
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      align-items: center;
-    }
-
-    .filter-btn, .action-btn {
-      padding: 0.48rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--muted);
-      transition: all 0.15s ease;
-    }
-
-    .filter-btn.active {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .action-btn-primary {
-      background: var(--accent);
-      color: #0b1120;
-      border-color: var(--accent);
-    }
-
-    .action-btn-primary:hover {
-      opacity: 0.92;
-    }
-
-    .action-btn-export {
-      background: var(--surface-2);
-      color: #e2e8f0;
-    }
-
-    .action-btn-export:hover {
-      border-color: var(--completed);
-      color: var(--completed);
-    }
-
-    /* Add Project Form */
-    .add-panel {
+    .admin-actions {
       display: none;
-      background: var(--surface);
-      border: 1px solid var(--accent);
-      border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 1.75rem;
+      gap: 0.45rem;
     }
 
-    .add-panel.open { display: block; }
+    body.admin-mode .admin-actions {
+      display: flex;
+    }
+
+    .small-action-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid var(--ink-muted);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .small-action-btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    /* ---------------- ADD PROJECT DRAWER ---------------- */
+    .add-drawer {
+      display: none;
+      background: var(--bg-card);
+      border: 1.5px solid var(--ink);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .add-drawer.open {
+      display: block;
+      animation: fadeUp 0.35s var(--ease-out) both;
+    }
 
     .form-grid {
       display: grid;
@@ -208,231 +660,261 @@
       gap: 0.35rem;
     }
 
-    .form-group.full { grid-column: 1 / -1; }
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
 
     label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-muted);
     }
 
     input, select, textarea {
       background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.6rem 0.8rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-family: inherit;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    textarea { resize: vertical; min-height: 82px; }
-
-    /* Project Cards */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.15rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.45rem;
-      transition: border-color 0.2s ease;
-    }
-
-    .card:hover { border-color: #3b4f6b; }
-
-    .card-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.65rem;
-    }
-
-    .status-pill {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-    }
-
-    .status-ongoing {
-      background: var(--ongoing-soft);
-      color: var(--ongoing);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-    }
-
-    .status-completed {
-      background: var(--completed-soft);
-      color: var(--completed);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }
-
-    .card-date {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      color: #f8fafc;
-    }
-
-    .card p {
-      color: #cbd5e1;
-      font-size: 0.93rem;
-      margin-bottom: 1rem;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 1rem;
-    }
-
-    .tag {
-      font-size: 0.76rem;
-      background: var(--surface-2);
-      color: #93c5fd;
-      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--ink);
       border-radius: 6px;
+      padding: 0.6rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--ink);
     }
 
-    .card-footer {
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    /* ---------------- COURSEWORK & ACADEMIC COLUMNS ---------------- */
+    .editorial-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (max-width: 760px) {
+      .editorial-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editorial-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.85rem;
+      transition: transform 0.3s var(--ease-out);
+    }
+
+    .editorial-box:hover {
+      transform: translateY(-3px);
+    }
+
+    .editorial-box h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px dotted var(--ink);
+    }
+
+    .editorial-list {
+      list-style: none;
+    }
+
+    .editorial-list li {
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.94rem;
+      color: var(--ink-muted);
+    }
+
+    .editorial-list li strong {
+      color: var(--ink);
+    }
+
+    .editorial-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* ---------------- FOOTER ---------------- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0 3.5rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.75rem;
-      padding-top: 0.85rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .repo-link {
+      gap: 1rem;
       font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
+      color: var(--ink-muted);
     }
 
-    .repo-link:hover { text-decoration: underline; }
-
-    .card-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .mini-btn {
+    .manage-toggle {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.76rem;
-      padding: 0.28rem 0.6rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
       background: transparent;
-      color: var(--muted);
+      border: 1px dashed var(--ink-muted);
+      color: var(--ink-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .mini-btn:hover { color: var(--text); border-color: var(--muted); }
-    .mini-btn.del:hover { color: #f87171; border-color: #f87171; }
-
-    /* Coursework & Info Grid */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.15rem;
+    .manage-toggle:hover,
+    body.admin-mode .manage-toggle {
+      border-style: solid;
+      border-color: var(--ink);
+      background: var(--sage);
+      color: var(--ink);
+      font-weight: 600;
     }
 
-    @media (max-width: 680px) {
-      .info-grid { grid-template-columns: 1fr; }
+    /* ---------------- ANIMATIONS ---------------- */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .info-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.4rem;
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .info-box h3 {
-      font-size: 1.02rem;
-      margin-bottom: 0.75rem;
-      color: var(--accent);
+    @keyframes floatShape {
+      0% {
+        transform: rotate(-10deg) translate(0, 0);
+        border-radius: 54% 46% 48% 52% / 52% 48% 52% 48%;
+      }
+      100% {
+        transform: rotate(-6deg) translate(-5px, 6px);
+        border-radius: 48% 52% 54% 46% / 48% 54% 46% 52%;
+      }
     }
 
-    .info-box ul {
-      list-style: none;
-      color: #cbd5e1;
-      font-size: 0.9rem;
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
     }
 
-    .info-box li {
-      padding: 0.28rem 0;
-      border-bottom: 1px solid rgba(39, 53, 73, 0.5);
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
     }
 
-    .info-box li:last-child { border-bottom: none; }
-
-    footer {
-      margin-top: 3rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.84rem;
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <div class="top-badges">
-        <span class="badge badge-inst">IISER Pune · BS–MS (2023–2028)</span>
-        <span class="badge badge-asi">Attending ASI Meet 2027 · Varanasi (Feb 12–16)</span>
+    <!-- Top Bar inspired by Tamara Sredojevic's clean header -->
+    <nav>
+      <a href="#" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">Aryan<br>IISER Pune</span>
+      </a>
+      <div class="nav-links">
+        <a href="#projects" class="nav-link active">Research</a>
+        <a href="#background" class="nav-link">Coursework</a>
+        <a href="Academic_CV.pdf" target="_blank" rel="noopener" class="nav-link">CV</a>
+        <a href="mailto:aryan.20231053@students.iiserpune.ac.in" class="nav-link">Contact</a>
       </div>
-      <h1>Aryan</h1>
-      <p class="subtitle">3rd-Year BS–MS Student · Physics Major &amp; Chemistry Minor</p>
-      <p class="bio">
-        Undergraduate researcher at the Indian Institute of Science Education and Research (IISER), Pune,
-        interested in observational &amp; theoretical astrophysics, interstellar molecular spectroscopy,
-        plasma physics, and scientific instrumentation. Focused on connecting physical theory with
-        computational modeling and experimental setups.
-      </p>
-      <div class="links-bar">
-        <a class="btn-link" href="mailto:aryan.20231053@students.iiserpune.ac.in">✉ Email</a>
-        <a class="btn-link" href="https://github.com/arc-aryan" target="_blank" rel="noopener">⌘ GitHub</a>
-        <a class="btn-link" href="https://orcid.org/0009-0000-2670-1698" target="_blank" rel="noopener">iD ORCID</a>
-        <a class="btn-link" href="Academic_CV.pdf" target="_blank" rel="noopener">📄 Curriculum Vitae</a>
-      </div>
-    </header>
+    </nav>
 
-    <section>
-      <div class="section-header">
-        <h2>Research &amp; Technical Projects</h2>
-        <div class="controls">
-          <button class="filter-btn active" data-filter="all">All (<span id="count-all">0</span>)</button>
-          <button class="filter-btn" data-filter="ongoing">Working On (<span id="count-ongoing">0</span>)</button>
-          <button class="filter-btn" data-filter="completed">Completed (<span id="count-completed">0</span>)</button>
-          <button class="action-btn action-btn-primary" id="toggle-add-btn">+ Add Project</button>
-          <button class="action-btn action-btn-export" id="export-html-btn" title="Download index.html with your saved projects so you can push updates to GitHub Pages">⬇ Export Site</button>
+    <!-- 3-Column Editorial Hero -->
+    <header class="hero">
+      <!-- Left Column: Bold Name + Dotted Line + Bio -->
+      <div class="hero-left">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>BS–MS Physics &amp; Chemistry · IISER Pune</span>
+        </div>
+        <h1 class="hero-title">I am Aryan.</h1>
+        <hr class="dotted-divider" />
+        <p class="hero-subtitle">
+          Undergraduate researcher exploring interstellar molecular spectroscopy, radiative transfer, and scientific instrumentation.
+        </p>
+        <div class="hero-links">
+          <a class="editorial-link" href="mailto:aryan.20231053@students.iiserpune.ac.in">Email <span>→</span></a>
+          <a class="editorial-link" href="https://github.com/arc-aryan" target="_blank" rel="noopener">GitHub <span>→</span></a>
+          <a class="editorial-link" href="https://orcid.org/0009-0000-2670-1698" target="_blank" rel="noopener">ORCID <span>→</span></a>
+          <a class="editorial-link" href="Academic_CV.pdf" target="_blank" rel="noopener">Curriculum Vitae <span>→</span></a>
         </div>
       </div>
 
-      <!-- Interactive Add Project Form -->
-      <div class="add-panel" id="add-panel">
-        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Add Ongoing or Completed Project</h3>
+      <!-- Center Column: Organic Portrait with Offset Dark Crescent -->
+      <div class="hero-center">
+        <div class="portrait-stage" id="portrait-stage">
+          <div class="portrait-Crescent" aria-hidden="true"></div>
+          <div class="portrait-sage-accent" aria-hidden="true"></div>
+          <div class="portrait-frame">
+            <img
+              id="profile-img"
+              src="profile.jpeg"
+              alt="Aryan – IISER Pune Physics & Chemistry Student"
+            />
+          </div>
+          <span class="photo-hint" style="display:none;">Click photo to test/swap local image</span>
+          <input type="file" id="photo-input" accept="image/*" style="display:none" />
+        </div>
+      </div>
+
+      <!-- Right Column: Pull Quote + ASI 2027 Callout -->
+      <div class="hero-right">
+        <div class="quote-mark open">“</div>
+        <p class="quote-body">
+          Connecting physical theory and molecular spectroscopy with reproducible computation and hands-on experimental setups.
+        </p>
+        <div class="asi-callout">
+          ✦ Attending <strong>ASI Meet 2027</strong> · Varanasi (Feb 12–16)
+        </div>
+        <br />
+        <a href="#projects" class="cta-arrow">→ Explore ResearchLog</a>
+        <div class="quote-mark close">”</div>
+      </div>
+    </header>
+
+    <!-- Research & Technical Projects Section -->
+    <section id="projects" class="reveal">
+      <div class="section-top">
+        <div>
+          <h2 class="section-title">Selected Research &amp; Technical Work</h2>
+          <p class="section-sub">Ongoing investigations, numerical pipelines, and laboratory hardware builds.</p>
+        </div>
+
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-filter="all">All (<span id="count-all">0</span>)</button>
+          <button class="tab-btn" data-filter="ongoing">Working On (<span id="count-ongoing">0</span>)</button>
+          <button class="tab-btn" data-filter="completed">Completed (<span id="count-completed">0</span>)</button>
+
+          <!-- Shown only when 'Manage Portfolio' mode is toggled on -->
+          <button class="pill-btn admin-only" id="toggle-add-btn">+ Add Project</button>
+          <button class="pill-btn secondary admin-only" id="export-html-btn">⬇ Export HTML</button>
+        </div>
+      </div>
+
+      <!-- Add Project Form Drawer -->
+      <div class="add-drawer" id="add-panel">
+        <h3 style="margin-bottom: 1rem;">Add Ongoing or Completed Project</h3>
         <form id="project-form">
           <div class="form-grid">
             <div class="form-group">
@@ -452,48 +934,65 @@
             </div>
             <div class="form-group">
               <label for="p-repo">GitHub / Link URL (Optional)</label>
-              <input type="url" id="p-repo" placeholder="https://github.com/username/repo" />
+              <input type="url" id="p-repo" placeholder="https://github.com/arc-aryan/ism-rotational-excitation" />
             </div>
             <div class="form-group full">
               <label for="p-desc">Research Question / Summary *</label>
-              <textarea id="p-desc" required placeholder="State the core question, methodology, and key findings or goals..."></textarea>
+              <textarea id="p-desc" required placeholder="State the core question, methodology, and findings..."></textarea>
             </div>
             <div class="form-group full">
-              <label for="p-tags">Tags (comma-separated)</label>
-              <input type="text" id="p-tags" placeholder="e.g., Python, Radiative Transfer, CDMS/JPL, Spectroscopy" />
+              <label for="p-tags">Keywords (comma-separated)</label>
+              <input type="text" id="p-tags" placeholder="Astrophysics, Molecular Spectroscopy, Python" />
             </div>
           </div>
-          <div style="display: flex; gap: 0.65rem;">
-            <button type="submit" class="action-btn action-btn-primary">Save Project</button>
-            <button type="button" class="filter-btn" id="cancel-add-btn">Cancel</button>
+          <div style="display:flex; gap:0.65rem;">
+            <button type="submit" class="pill-btn">Save Project</button>
+            <button type="button" class="pill-btn secondary" id="cancel-add-btn">Cancel</button>
           </div>
         </form>
       </div>
 
-      <div class="projects-grid" id="projects-grid"></div>
+      <!-- Editorial Project List -->
+      <div class="projects-list" id="projects-grid"></div>
     </section>
 
-    <section class="info-grid">
-      <div class="info-box">
-        <h3>Core Coursework</h3>
-        <ul>
-          <li><strong>Physics Major:</strong> Quantum Mechanics, Electrodynamics, Optics &amp; Lasers, Classical Mechanics, Gravitation, Plasma Physics, Condensed Matter Basics</li>
-          <li><strong>Chemistry Minor:</strong> Advanced Molecular Spectroscopy, Quantum Chemistry</li>
-          <li><strong>Laboratory:</strong> Experimental Physics &amp; Chemistry Labs, Data Analysis &amp; Scientific Programming</li>
-        </ul>
+    <!-- Coursework & Highlights Section -->
+    <section id="background" class="reveal">
+      <div class="section-top">
+        <div>
+          <h2 class="section-title">Academic Foundation</h2>
+          <p class="section-sub">BS–MS Dual Degree at the Indian Institute of Science Education and Research (IISER), Pune.</p>
+        </div>
       </div>
-      <div class="info-box">
-        <h3>Academic &amp; Outreach Highlights</h3>
-        <ul>
-          <li><strong>ASI Meet 2027:</strong> Attending the 45th Annual Meeting of the Astronomical Society of India (IIT BHU &amp; BHU, Varanasi)</li>
-          <li><strong>Observational Astronomy:</strong> Pune Astronomy Camp &amp; Refractive Telescope Observation Nights</li>
-          <li><strong>Leadership:</strong> Organiser, Bookworm Reading Workshop (2023) &amp; Cricket Coordinator, IISER Pune (2024–2025)</li>
-        </ul>
+
+      <div class="editorial-columns">
+        <div class="editorial-box">
+          <h3>Core Coursework</h3>
+          <ul class="editorial-list">
+            <li><strong>Physics Major:</strong> Quantum Mechanics, Electrodynamics, Optics &amp; Lasers, Classical Mechanics, Gravitation, Plasma Physics, Condensed Matter Basics</li>
+            <li><strong>Chemistry Minor:</strong> Advanced Molecular Spectroscopy, Quantum Chemistry</li>
+            <li><strong>Experimental Labs:</strong> Physics &amp; Chemistry Instrumentation Labs, Data Reduction &amp; Scientific Computing</li>
+          </ul>
+        </div>
+
+        <div class="editorial-box">
+          <h3>Conferences &amp; Field Experience</h3>
+          <ul class="editorial-list">
+            <li><strong>ASI 2027 (Varanasi):</strong> Attending the 45th Annual Meeting of the Astronomical Society of India (Feb 12–16, 2027)</li>
+            <li><strong>Observational Astronomy:</strong> Pune Astronomy Camp &amp; Multi-night Refractive Telescope Sky Surveys</li>
+            <li><strong>Campus Leadership:</strong> Organiser, Bookworm Reading Workshop (2023) &amp; Cricket Coordinator, IISER Pune (2024–2025)</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <footer>
-      Aryan · IISER Pune · Last updated <span id="year"></span>
+      <div>
+        © <span id="year"></span> Aryan · IISER Pune · ORCID: 0009-0000-2670-1698
+      </div>
+      <button class="manage-toggle" id="manage-toggle-btn" title="Toggle buttons to add, edit, or export projects">
+        ⚙ Manage Portfolio
+      </button>
     </footer>
   </div>
 
@@ -527,7 +1026,7 @@
       "LAMDA",
       "Python"
     ],
-    "repo": "https://github.com/YOUR-USERNAME/ism-rotational-excitation"
+    "repo": "https://github.com/arc-aryan/ism-rotational-excitation"
   },
   {
     "id": "proj-3",
@@ -561,7 +1060,8 @@
   <!-- INITIAL_PROJECTS_DATA_END -->
 
   <script>
-    const STORAGE_KEY = "aryan_portfolio_projects_v6";
+    const STORAGE_KEY = "aryan_portfolio_projects_v7";
+    const PHOTO_STORAGE_KEY = "aryan_portfolio_photo_v1";
     let currentFilter = "all";
 
     function loadProjects() {
@@ -598,32 +1098,38 @@
       const filtered = projects.filter(p => currentFilter === "all" || p.status === currentFilter);
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="card"><p style="margin:0;color:var(--muted);">No projects in this category yet. Click <strong>+ Add Project</strong> above to add one.</p></div>`;
+        grid.innerHTML = `<div style="padding: 2rem 0; color: var(--ink-muted);">No projects in this view yet.</div>`;
         return;
       }
 
       grid.innerHTML = filtered.map(p => `
-        <article class="card">
-          <div class="card-top">
-            <span class="status-pill ${p.status === "ongoing" ? "status-ongoing" : "status-completed"}">
+        <article class="project-item">
+          <div class="project-meta">
+            <span class="status-tag ${p.status === "ongoing" ? "status-ongoing" : "status-completed"}">
               ${p.status === "ongoing" ? "● Working On" : "✓ Completed"}
             </span>
-            <span class="card-date">${escapeHtml(p.date || "")}</span>
+            <span class="project-date">${escapeHtml(p.date || "")}</span>
           </div>
-          <h3>${escapeHtml(p.title)}</h3>
-          <p>${escapeHtml(p.desc)}</p>
-          <div class="tags">
-            ${(p.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
-          </div>
-          <div class="card-footer">
-            <div>
-              ${p.repo ? `<a class="repo-link" href="${escapeHtml(p.repo)}" target="_blank" rel="noopener">View Repository / Link →</a>` : `<span style="font-size:0.8rem;color:var(--muted);">Lab / Hardware Documentation</span>`}
+          <div class="project-content">
+            <h3>${escapeHtml(p.title)}</h3>
+            <p>${escapeHtml(p.desc)}</p>
+            <div class="project-tags">
+              ${(p.tags || []).map(t => `<span class="project-tag">${escapeHtml(t)}</span>`).join("")}
             </div>
-            <div class="card-actions">
-              <button class="mini-btn" onclick="toggleStatus('${p.id}')">
-                Mark as ${p.status === "ongoing" ? "Completed" : "Working On"}
-              </button>
-              <button class="mini-btn del" onclick="deleteProject('${p.id}')">Delete</button>
+            <div class="project-footer">
+              <div>
+                ${p.repo
+                  ? `<a class="cta-arrow" href="${escapeHtml(p.repo)}" target="_blank" rel="noopener">→ View Repository / Code</a>`
+                  : `<span style="font-family:'JetBrains Mono',monospace; font-size:0.76rem; color:var(--ink-subtle);">Experimental / Lab Build</span>`
+                }
+              </div>
+              <div class="admin-actions">
+                <button class="small-action-btn" onclick="editRepoLink('${p.id}')">Edit Link</button>
+                <button class="small-action-btn" onclick="toggleStatus('${p.id}')">
+                  Mark ${p.status === "ongoing" ? "Completed" : "Working On"}
+                </button>
+                <button class="small-action-btn" onclick="deleteProject('${p.id}')">Delete</button>
+              </div>
             </div>
           </div>
         </article>
@@ -635,6 +1141,14 @@
       saveProjects();
     };
 
+    window.editRepoLink = function(id) {
+      const proj = projects.find(p => p.id === id);
+      const url = prompt("Enter GitHub repository or project URL:", proj.repo || "https://github.com/arc-aryan/");
+      if (url === null) return;
+      projects = projects.map(p => p.id === id ? { ...p, repo: url.trim() } : p);
+      saveProjects();
+    };
+
     window.deleteProject = function(id) {
       if (!confirm("Remove this project from your portfolio?")) return;
       projects = projects.filter(p => p.id !== id);
@@ -642,16 +1156,25 @@
     };
 
     // Filter tabs
-    document.querySelectorAll(".filter-btn[data-filter]").forEach(btn => {
+    document.querySelectorAll(".tab-btn[data-filter]").forEach(btn => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll(".filter-btn[data-filter]").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-btn[data-filter]").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         currentFilter = btn.dataset.filter;
         renderProjects();
       });
     });
 
-    // Toggle Add Panel
+    // Toggle Discrete Admin Mode
+    const manageBtn = document.getElementById("manage-toggle-btn");
+    manageBtn.addEventListener("click", () => {
+      document.body.classList.toggle("admin-mode");
+      manageBtn.textContent = document.body.classList.contains("admin-mode")
+        ? "✓ Done Managing"
+        : "⚙ Manage Portfolio";
+    });
+
+    // Add Project Drawer
     const addPanel = document.getElementById("add-panel");
     document.getElementById("toggle-add-btn").addEventListener("click", () => {
       addPanel.classList.toggle("open");
@@ -660,7 +1183,6 @@
       addPanel.classList.remove("open");
     });
 
-    // Form Submit
     document.getElementById("project-form").addEventListener("submit", (e) => {
       e.preventDefault();
       const title = document.getElementById("p-title").value.trim();
@@ -688,8 +1210,36 @@
       addPanel.classList.remove("open");
     });
 
+    // Click Portrait to preview/bake a photo right from your computer
+    const portraitStage = document.getElementById("portrait-stage");
+    const photoInput = document.getElementById("photo-input");
+    const profileImg = document.getElementById("profile-img");
+
+    const savedPhoto = null;
+    if (savedPhoto) {
+      profileImg.src = savedPhoto;
+    }
+
+    portraitStage.addEventListener("click", () => {
+      void(0);
+    });
+
+    photoInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        profileImg.src = reader.result;
+        try {
+          localStorage.setItem(PHOTO_STORAGE_KEY, reader.result);
+        } catch (err) {}
+      };
+      reader.readAsDataURL(file);
+    });
+
     // Export standalone HTML with updated projects baked in
     document.getElementById("export-html-btn").addEventListener("click", () => {
+      document.body.classList.remove("admin-mode");
       const currentDoc = document.documentElement.outerHTML;
       const updatedJson = JSON.stringify(projects, null, 2);
       const replaced = currentDoc.replace(
@@ -702,6 +1252,17 @@
       a.download = "index.html";
       a.click();
     });
+
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
     document.getElementById("year").textContent = new Date().getFullYear();
     renderProjects();
