@@ -869,7 +869,7 @@
           <div class="portrait-frame">
             <img
               id="profile-img"
-              src="profile.jpg"
+              src="profile.jpeg"
               alt="Aryan — IISER Pune Physics & Chemistry Student"
               onerror="this.src='WhatsApp Image 2026-11-14 at 06.00.03 (2).jpeg'"
             />
@@ -1216,7 +1216,7 @@
     const photoInput = document.getElementById("photo-input");
     const profileImg = document.getElementById("profile-img");
 
-    const savedPhoto = localStorage.getItem(PHOTO_STORAGE_KEY);
+    const savedPhoto = (localStorage.getItem(PHOTO_STORAGE_KEY) || "profile.jpeg");
     if (savedPhoto) {
       profileImg.src = savedPhoto;
     }
